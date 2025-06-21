@@ -1,0 +1,6 @@
+.env
+.env.docker
+node_modules
+data
+logs
+initdb
