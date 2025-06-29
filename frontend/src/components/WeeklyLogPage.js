@@ -1,6 +1,7 @@
 import React from 'react';
 import './WeeklyLogPage.css';
 import SidebarTabs from './SidebarTabs';
+import MonthTabs from './MonthTabs';
 
 export default function WeeklyLogPage({ children }) {
   /* explain code: what is children? it is a special prop in React
@@ -21,6 +22,7 @@ export default function WeeklyLogPage({ children }) {
         <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
           {children}
         </div>
+        <MonthTabs />
       </div>
     </div>
   );
