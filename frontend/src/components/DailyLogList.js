@@ -4,7 +4,12 @@ import { getDailyLogs, createDailyLog, updateDailyLog, deleteDailyLog } from '..
 const emptyLog = { date: '', content: '', tags: '', priority: 'medium' };
 
 export default function DailyLogList() {
-	// useState is a function that allows you to declare a state variable and a function to update it within
+  /* explain code
+  useState is a function that allows you to declare a state variable and a function to update it within
+	logs: stores an array of all daily logs that display on UI
+  form: store data for the form (date, content, tags,..). this is the log data that the user is adding or edit
+  */
+	
   const [logs, setLogs] = useState([]);
   const [form, setForm] = useState(emptyLog);
   const [editingId, setEditingId] = useState(null);
@@ -15,10 +20,14 @@ export default function DailyLogList() {
   };
 
   useEffect(() => {
+    console.log('Calling useEffect ...')
     fetchLogs();
   }, []);
 
   const handleChange = e => {
+    // console.log(`form: ${JSON.stringify(form)}`)
+    console.log(`handleChange: ${e.target.name} = ${e.target.value}`);
+    // explain code: updates e.target.name of form, while preserving the rest
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
@@ -35,8 +44,10 @@ export default function DailyLogList() {
   };
 
   const handleEdit = log => {
+    // When user click edit, show the log data of edited entry in the form
     setForm({ ...log, tags: log.tags.join(', ') });
     setEditingId(log._id);
+    console.log(`handleEdit: ${JSON.stringify(log)}`);
   };
 
   const handleDelete = async id => {
@@ -56,7 +67,10 @@ export default function DailyLogList() {
           <option value="medium">Medium</option>
           <option value="high">High</option>
         </select>
+        <h3>editingId: {editingId}</h3>
         <button type="submit">{editingId ? 'Update' : 'Add'}</button>
+
+        {/* If editingId is set, show Cancel button */}
         {editingId && <button type="button" onClick={() => { setForm(emptyLog); setEditingId(null); }}>Cancel</button>}
       </form>
       <ul>
